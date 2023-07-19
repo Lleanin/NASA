@@ -2,13 +2,12 @@ import requests
 import os
 from save_tools import save_picture,get_extension
 
-
 from dotenv import load_dotenv
 
 
 def main():
     load_dotenv()
-    nasa_token = os.environ.get("NASA_API_TOKEN")
+    nasa_token = os.getenv("NASA_API_TOKEN")
     
     payload ={"count" : 30,
               "api_key" : nasa_token
