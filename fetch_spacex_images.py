@@ -1,7 +1,8 @@
-import argparse
 import requests
-from save_tools import save_picture
 
+import argparse
+
+from save_tools import save_picture
 
 def main():
     parser = argparse.ArgumentParser(description='Данный файл скачивает фотографии с последнего запуска')
