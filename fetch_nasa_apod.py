@@ -1,15 +1,26 @@
 import requests
 import os
-from save_tools import save_picture,get_extension
 
+
+import argparse
 from dotenv import load_dotenv
+
+from save_tools import save_picture,get_extension
 
 
 def main():
     load_dotenv()
     nasa_token = os.getenv("NASA_API_TOKEN")
     
-    payload ={"count" : 30,
+    parser = argparse.ArgumentParser(description='Данный файл скачивает фотографии с последнего запуска')
+    parser.add_argument('--count', 
+                        type=int,
+                        default=30, 
+                        help='Введите кол-во фотографий которые вы хотите скачать'
+                        )
+    args = parser.parse_args()
+    count = args.count
+    payload ={"count" : count,
               "api_key" : nasa_token
              }
     url = 'https://api.nasa.gov/planetary/apod'
