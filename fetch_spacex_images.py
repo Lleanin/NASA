@@ -1,8 +1,8 @@
+import argparse
 import requests
 
-import argparse
-
 from save_tools import save_picture
+
 
 def main():
     parser = argparse.ArgumentParser(description='Данный файл скачивает фотографии с последнего запуска')
@@ -13,6 +13,7 @@ def main():
                         )
     args = parser.parse_args()
     id = args.id
+    
     url = 'https://api.spacexdata.com/v5/launches/{}'.format(id)
     response = requests.get(url)
     response.raise_for_status()

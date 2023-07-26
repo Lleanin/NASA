@@ -1,9 +1,10 @@
-import requests
-import random
 import os
-from save_tools import save_picture
+import random
 
 from dotenv import load_dotenv
+import requests
+
+from save_tools import save_picture
 
 
 def main():

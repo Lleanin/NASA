@@ -1,8 +1,7 @@
-import requests
 import os
 
-
 import argparse
+import requests
 from dotenv import load_dotenv
 
 from save_tools import save_picture,get_extension
@@ -20,6 +19,7 @@ def main():
                         )
     args = parser.parse_args()
     count = args.count
+    
     payload ={"count" : count,
               "api_key" : nasa_token
              }
