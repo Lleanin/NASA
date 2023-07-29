@@ -16,10 +16,11 @@ def main():
     response = requests.get(url, params = payload)
     response.raise_for_status()
 
-    epic_photos = random.randint(5, 10)
-    for index in range(epic_photos):
+    
+    for index in range(random.randint(5, 10)):
         file_name = f'epic_{index+1}.png'
         data = response.json()[index]
+        print(data)
         date = data['date'].split()[0]
         date = date.split('-')
         name = data['image']
