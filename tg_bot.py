@@ -30,7 +30,7 @@ def main():
             filename = random.choice(files_names)
         full_name = os.path.join(folder, filename)
         with open(full_name, 'rb'):
-            bot.send_document(chat_id=tg_chat_id)
+            bot.send_document(chat_id=tg_chat_id, document=open(full_name, 'rb'))
         time.sleep(periodicity)
 
 

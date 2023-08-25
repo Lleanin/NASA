@@ -25,13 +25,14 @@ def main():
     url = 'https://api.nasa.gov/EPIC/api/natural/images'
     response = requests.get(url, params=payload)
     response.raise_for_status()
+    nasa_epic_answers = response.json()
 
     for index in range(random.randint(5, 10)):
         file_name = f'epic_{index+1}.png'
-        nasa_epic_data = response.json()[index]
-        date = nasa_epic_data['date'].split()[0]
+        nasa_epic_answer = nasa_epic_answers[index]
+        date = nasa_epic_answer['date'].split()[0]
         date = date.split('-')
-        name = nasa_epic_data['image']
+        name = nasa_epic_answer['image']
         epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/{date[0]}/{date[1]}/{date[2]}/png/{name}.png'
         save_picture(folder, epic_image_url, file_name, payload)
 
