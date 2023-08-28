@@ -27,9 +27,9 @@ def main():
     response.raise_for_status()
     nasa_epic_answers = response.json()
 
-    for index in range(random.randint(5, 10)):
-        file_name = f'epic_{index+1}.png'
-        nasa_epic_answer = nasa_epic_answers[index]
+    for answer_number,answer in enumerate(nasa_epic_answers):
+        file_name = f'epic_{answer_number}.png'
+        nasa_epic_answer = nasa_epic_answers[answer_number]
         date = nasa_epic_answer['date'].split()[0]
         date = date.split('-')
         name = nasa_epic_answer['image']

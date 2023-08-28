@@ -20,18 +20,24 @@ def main():
                         default=14400,
                         help='Введите с какой переодичностью отправлят картинки'
                         )
+    parser.add_argument('--folder',
+                        type=str,
+                        default='folder',
+                        help='Введите название папки')
     args = parser.parse_args()
+    folder = args.folder
     periodicity = args.time
 
     while True:
-        all_files = os.walk("images")
+        all_files = os.walk(folder)
         for array_of_files in all_files:
             folder, nested_folder, files_names = array_of_files
             filename = random.choice(files_names)
-        full_name = os.path.join(folder, filename)
-        with open(full_name, 'rb'):
-            bot.send_document(chat_id=tg_chat_id, document=open(full_name, 'rb'))
-        time.sleep(periodicity)
+            full_name = os.path.join(folder, filename)
+            file = open(full_name, 'rb')
+            with file:
+                bot.send_document(chat_id=tg_chat_id, document=file)
+            time.sleep(periodicity)
 
 
 if __name__ == '__main__':
