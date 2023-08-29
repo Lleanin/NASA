@@ -18,27 +18,34 @@ def main():
     parser.add_argument('--time',
                         type=int,
                         default=14400,
-                        help='Введите с какой переодичностью отправлят картинки'
+                        help='Введите с какой переодичностью отправлять картинки'
                         )
     parser.add_argument('--folder',
                         type=str,
                         default='folder',
-                        help='Введите название папки')
+                        help='Введите название папки, содержащей фотографии')
     args = parser.parse_args()
     folder = args.folder
     periodicity = args.time
 
     while True:
-        all_files = os.walk(folder)
-        for array_of_files in all_files:
-            folder, nested_folder, files_names = array_of_files
-            filename = random.choice(files_names)
-            full_name = os.path.join(folder, filename)
-            file = open(full_name, 'rb')
-            with file:
-                bot.send_document(chat_id=tg_chat_id, document=file)
-            time.sleep(periodicity)
+        all_files = []
+        for root, _, files in os.walk(folder):
+            all_files.extend([os.path.join(root, file) for file in files])
 
+        if not all_files:
+            print(f"Папка {folder} не содержит файлов.")
+            break
+        
+        random_file = random.choice(all_files)
+        with open(random_file, 'rb') as file:
+            try:
+                bot.send_document(chat_id=tg_chat_id, document=file)
+                print(f"Отправлена фотография: {random_file}")
+            except telegram.error.TelegramError as e:
+                print(f"Произошла ошибка при отправке: {e}")
+            
+        time.sleep(periodicity)
 
 if __name__ == '__main__':
     main()
