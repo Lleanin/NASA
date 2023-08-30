@@ -1,6 +1,5 @@
 import argparse
 import os
-import random
 
 from dotenv import load_dotenv
 import requests
@@ -27,12 +26,11 @@ def main():
     response.raise_for_status()
     nasa_epic_answers = response.json()
 
-    for answer_number,answer in enumerate(nasa_epic_answers):
+    for answer_number, answer in enumerate(nasa_epic_answers):
         file_name = f'epic_{answer_number}.png'
-        nasa_epic_answer = nasa_epic_answers[answer_number]
-        date = nasa_epic_answer['date'].split()[0]
+        date = answer['date'].split()[0]
         date = date.split('-')
-        name = nasa_epic_answer['image']
+        name = answer['image']
         epic_image_url = f'https://api.nasa.gov/EPIC/archive/natural/{date[0]}/{date[1]}/{date[2]}/png/{name}.png'
         save_picture(folder, epic_image_url, file_name, payload)
 

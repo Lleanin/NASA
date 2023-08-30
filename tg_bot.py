@@ -36,16 +36,17 @@ def main():
         if not all_files:
             print(f"Папка {folder} не содержит файлов.")
             break
-        
+
         random_file = random.choice(all_files)
-        with open(random_file, 'rb') as file:
-            try:
+        try:
+            with open(random_file, 'rb') as file:
                 bot.send_document(chat_id=tg_chat_id, document=file)
-                print(f"Отправлена фотография: {random_file}")
-            except telegram.error.TelegramError as e:
-                print(f"Произошла ошибка при отправке: {e}")
-            
+            print(f"Отправлена фотография: {random_file}")
+        except telegram.error.TelegramError as e:
+            print(f"Произошла ошибка при отправке: {e}")
+
         time.sleep(periodicity)
+
 
 if __name__ == '__main__':
     main()
